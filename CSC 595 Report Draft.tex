@@ -1,4 +1,4 @@
-\documentclass[12pt]{thesis}
+\documentclass[12pt]{article}
 \usepackage{fullpage, graphicx, psfrag}
 \usepackage{epsfig}
 \usepackage{epstopdf}
@@ -76,22 +76,25 @@
 \end{spacing}
 
 \setcounter{page}{1}
-\pagenumbering{arabic}
 
+\pagenumbering{arabic}
+\setcounter{section}{0}
 
 \newpage
 {\section{Introduction and Data Description}}
-{\sf Data Introduction and Overall Summary}\\
+{\subsection{Data Introduction and Overall Summary}}
+
 The NHANES is a large scale longitudinal database created by the Centers for Disease Control and Prevention (CDC) to collected data from a sub-sampling of the United States population.  The data includes interview data, physical examinations to include vital signs (systolic and diastolic blood pressure, height, weight, BMI, ...) as dental information, laboratory measurements (i.e. glucose or HBA1C values for diabetes), and demographics information.  The purpose of this data is set national standards (i.e. BMI percentile measurements standardized by age and sex), track health data for diseases like cardiovascular disease or diabetes to shape public policy, or provide data for international research organizations and academic institutions for many purposes.  Please see the following example of areas which have used this data: Iranpour at al (2019) looked at the inverse relationship between amount of caffeine consumed and symptoms of depression; Wang at al (2018) looked at the relationship between the cadmium in the blood and both blood pressure and obesity; Howell et al (2017) looked at the mortality rate of Mexican American adults in relation to their BMI/BMI percentile as well as demographic information.
 
 The focus of the interactive tool as well as this report is to provide summaries of obesity data collected in NHANES.  Obesity is a serious problem as documented by the CDC and World Health Organization (WHO) which has led to an increase in many diseases ranging from cardiovascular disease to diabetes worldwide.  Hales, Carrol, Fryar, and Ogden (2017) documented the incidence of obesity in the united states based on different demographic data based on a publication within that organization from 20165- 2016.  This paper presented this information through bar charts to overall counts by demographic groups as well as line charts to show the incidence rates within the time frame of 2015-2016. They also showed line plots overtime from 1999 to put these results in a general context.  Thompson et al (2007) explored the impact of childhood obesity upon later health effects and identified risk factors for long term health.  In this study the long terms impacts for how the development of cardiovascular disease were examined to see impact upon children as well as effects within adulthood.  The Centers for Disease Control and Prevention looked at incidence of diabetes with regards to many risk factors including obesity (2011).  Ford ES (2005) summarized the risk factors for both cardiovascular disease and diabetes and indicated the link between both diseases and obesity.
 
-This interactive tool will provide a summary of the prevalence of obesity using the NHANES data.  This will due this for different demographics variables to show the prevalence based on variables like age.  Variables were also generated showing the continuous variables like age, height, and weight binned for use in tree or treemap tables.  It was felt that from the clinical perspective these were good as they mimicked clinical flow diagrams.  Thus this would be good visualization approaches based on how clinicians look at diagnosis strategies based on flow charts. 
+This interactive tool will provide a summary of the prevalence of obesity using the NHANES data.  This will due this for different demographics variables to show the prevalence based on variables like age.  Variables were also generated showing the continuous variables like age, height, and weight binned for use in tree or treemap plots.  It was felt that from the clinical perspective these were good as they mimicked clinical flow diagrams.  Thus this would be good visualization approaches based on how clinicians look at diagnosis strategies based on flow charts.  The purpose of the data was the emphasize summary of obesity in a way meant to reflect clinical judgement.
 
 
 \vspace{5 mm}
 
-{\sf Data Description}\\
+{\subsection {Data Description}}
+
 The data included in our combined dataset includes the following:
 \begin{longtable}{|p{5cm}|p{1.4cm}|c|p{2cm}|p{6.5cm}|}
 \hline
@@ -105,47 +108,40 @@ Age &Years&Integer& & Age at time of the vital sign measurement in years\\
 \hline
 Age Grouping&&Categorical&21-30, 31-40,... &Derived based on ten year intervals\\
 \hline
-Height&cm&float with 1-decimal& & \\
+Height&cm&Float with 1-decimal& & \\
 \hline
 Height Grouping&&Categorical&151-175, 176-200, ...& Derived\\
 \hline
-Weight&kg&float with 1-decimal&  & \\
+Weight&kg&Float with 1-decimal&  & \\
 \hline
 Weight Grouping&&Categorical&71-80, 81-90, ...& Derived\\
 \hline
-BMI&$\frac{kg}{m^2}$&float with 1-decimal&  &Derived based on height and weight \\
+BMI&$\frac{kg}{m^2}$&Float with 1-decimal&  &Derived based on height and weight \\
 \hline
-Systolic BP&$mmHg$&float with 1-decimal&  & \\
+Systolic BP&$mmHg$&Float with 1-decimal&  & \\
 \hline
-Diastolic BP&$mmHg$&float with 1-decimal&  & \\
+Diastolic BP&$mmHg$&Float with 1-decimal&  & \\
 \hline
-Total Cholesterol&$\frac{mg}{dL}$&integer&  & \\
+Total Cholesterol&$\frac{mg}{dL}$&Integer&  & \\
 \hline
-Obesity&&Categorical& TRUE, FALSE &TRUE = Obese, FALSE = Not Obese \\
+Obesity&&Boolean& TRUE, FALSE &TRUE = Obese, FALSE = Not Obese \\
 \hline
 \end{longtable}
 
 The data contains the overall key as well as important vital sign variables such as height, weight, BMI, and blood pressure.  Some variables have been derived to create categorical groupings.  This makes sense as there may be much change year to year for most people under 40 (in the elderly population there would be more impact upon health even from year to year or even month to month).  Yet there are significant medical issue which appear from decade to decade as the health problems for a 20 year old and different than a 40 year old.  They also allow for these variables to be used in our visualizations such as treemaps.  The same is true for the height and weight groupings.  The categorical bins allow for the binning of subjects in the space filling approaches to expand to more detailed data on obesity within those groupings.
 
+A few things to note on the relationship between obesity and the variables.  There is a clear relationship between BMI, age, gender, and obesity.  Using the CDC website [8] obesity can be defined as a function of BMI with BMIs 30 or higher classified as obese and BMIs between 25.0 and 29.9 as overweight.  For teens and children BMI is not calculated in the same manner as the CDC indicates this is a function of age and gender.  Obesity is based on the BMI percentile for children and a teen or child would be considered obese if their BMI percentile was above the $95^{th}$ percentile for their age and gender.  This is a standard value based on a teen or child's age or gender.  It is also clear that height and weight impact obesity as BMI is weight divided by height squared.  There should be a correlation between blood pressure and obesity but not as strong as the other variables.  There should be a positive correlation between hypertension (high blood pressure) and obesity.  Similarly there should be a positive correlation between total cholesterol (especially triglycerides) and obesity.  High and extreme levels of cholesterol (dyslipidemia, hyperlidemia, or hypertriglyceridemia) should have an increased risk for obesity.  Nonetheless both cholesterol and blood pressure should have a weaker relationship as there other factors impacting each such as stress and genetics.
 
 
+{\subsection {Data Summary}}
 
-{\sf Data Summary}\\
-
-{\sf Data Cleaning}\\
+{\subsection {Data Cleaning}}
 
 
 \newpage
+
 
 {\section{Description of Interactive Visualization Approach}}
-
-\newpage
-
-{\section{Individual Reports}}
-{\sf Kendall Zettlmeier}\\
-The work that I did for the project, started with setting up the team with a GitHub repository where the team could collaborate on the project together and store all of our code and deliverables.  I also got the team started with deliverable 0 by creating the text file to be turned in and giving a description of the dataset that the team chose with a brief introduction on what we were going to be doing with the data.  I was also able to pull down some data via the Kaggle site to match multiple CSVs into 1 CSV by create an combined excel workbook and matching the survey participants SEQN numbers to each CSV via a VLOOKUP excel function, I then pulled the correct columns in which we wanted to use for the project.  As far as the actual implementation of the visualization goes, I was able to get the data setup in such a way to use age, weight, and height as heirarchical datasets in which we could create a treemap of the different data chunks.  By splitting the data for age, weight, and height into different groups, it made for visualizing the data into a more managable chunks.  I then set the 3 data chunks to be displayed via treemaps via a generic treemap helper that I created, and set the different treemaps to be viewed based upon the radio selection that was chosen.  I was also able to get the treemap dispatch function setup to send across the clicked group so that we could hook the click up to open up sub pie charts below the treemap.  Finally I was able to collaborate with Kevin on the styling of the web page to align and setup titles for each of the different visualizations.
-
-As far as what I learned from the visualization, is was basically what I expected.  The younger the age group the lower the BMI and cholesterol levels were.  The younger the age, also had fewer obese survey participants.  Since there is a direct correlation to the height and weight to what the BMI was, it wasn't surprising to see that heavier weighted participants had a larger percentage of obesity and high cholesterol.  It was on the otherhand interesting to see the differences in height in which groups had higher amounts of obesity.  I did not necessarily think that the taller groups would have higher percentages of obesity.  I tend to think of most tall people as thin, so it was interesting to see that the tallst group had the highest obesity percentage.
 
 \newpage
 
@@ -164,6 +160,8 @@ As far as what I learned from the visualization, is was basically what I expecte
 [6] Thompson, DR, Obarzanek, E, Franko, DL, Barton, BA, Morrison, J, Biro, FM, Daniels, SR, Striegel-Moore, RH (2007).  Childhood overweight and cardiovascular disease risk factors: the National Heart, Lung, and Blood Institute Growth and Health Study. The Journal of Pediatrics, 150(1), 18-25. 
 
 [7] Wang Q, Wei S (2018). Cadmium affects blood pressure and negatively interacts with obesity: Findings in the NHANES 1999-2014. The Science of the Total Environment, 1879-1026(643), 270-276.
+
+[8] \url{https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html}
 
 
 
