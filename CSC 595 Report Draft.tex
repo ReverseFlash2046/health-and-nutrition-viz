@@ -63,7 +63,7 @@
 
 \numberwithin{figure}{section}
 
-\begin{document} \begin{center}{\large{\sf Draft title for CSC 595 Report}}\end{center}
+\begin{document} \begin{center}{\large{\sf Summary of Obesity and Basic Vital Sign Data from NHANES}}\end{center}
 \sloppy
 \begin{spacing}{1.70}
 
@@ -128,18 +128,46 @@ Obesity&&Boolean& TRUE, FALSE &TRUE = Obese, FALSE = Not Obese \\
 \hline
 \end{longtable}
 
-The data contains the overall key as well as important vital sign variables such as height, weight, BMI, and blood pressure.  Some variables have been derived to create categorical groupings.  This makes sense as there may be much change year to year for most people under 40 (in the elderly population there would be more impact upon health even from year to year or even month to month).  Yet there are significant medical issue which appear from decade to decade as the health problems for a 20 year old and different than a 40 year old.  They also allow for these variables to be used in our visualizations such as treemaps.  The same is true for the height and weight groupings.  The categorical bins allow for the binning of subjects in the space filling approaches to expand to more detailed data on obesity within those groupings.  The treemaps would show the counts based on space filling for variables like height, weight, or age by bins whereas the bar charts would show the relationship between to the factors based on percentages to obesity and cholesterol.
+The data contains the overall key as well as important vital sign variables such as height, weight, BMI, and blood pressure.  Some variables have been derived to create categorical groupings.  This makes sense as there may be much change year to year for most people under 40 (in the elderly population there would be more impact upon health even from year to year or even month to month).  Yet there are significant medical issue which appear from decade to decade as the health problems for a 20 year old and different than a 40 year old.  They also allow for these variables to be used in our visualizations such as treemaps.  The same is true for the height and weight groupings.  The categorical bins allow for the binning of subjects in the space filling approaches to expand to more detailed data on obesity within those groupings.  The treemaps would show the counts based on space filling for variables like height, weight, or age by bins whereas the bar charts would show the relationship between to the factors based on percentages to obesity and cholesterol. 
 
-A few things to note on the relationship between obesity and the variables.  There is a clear relationship between BMI, age, gender, and obesity.  Using the CDC website [9] obesity can be defined as a function of BMI with BMIs 30 or higher classified as obese and BMIs between 25.0 and 29.9 as overweight.  For teens and children BMI is not calculated in the same manner as the CDC indicates this is a function of age and gender.  Obesity is based on the BMI percentile for children and a teen or child would be considered obese if their BMI percentile was above the $95^{th}$ percentile for their age and gender.  This is a standard value based on a teen or child's age or gender.  It is also clear that height and weight impact obesity as BMI is weight divided by height squared.  There should be a correlation between blood pressure and obesity but not as strong as the other variables.  There should be a positive correlation between hypertension (high blood pressure) and obesity.  Similarly there should be a positive correlation between total cholesterol (especially triglycerides) and obesity.  High and extreme levels of cholesterol (dyslipidemia, hyperlidemia, or hypertriglyceridemia) should have an increased risk for obesity.  Nonetheless both cholesterol and blood pressure should have a weaker relationship as there other factors impacting each such as stress and genetics.  Choi (2014) has an interesting paper looking at the relationship between obesity and different complication like diabetes and cholesterol issues based on a biological perspective.  This would explain biologically the correlations between the various issues.
+A few things to note on the relationship between obesity and the variables.  There is a clear relationship between BMI, age, gender, and obesity.  Using the CDC website [9] obesity can be defined as a function of BMI with BMIs 30 or higher classified as obese and BMIs between 25.0 and 29.9 as overweight.  For teens and children BMI is not calculated in the same manner as the CDC indicates this is a function of age and gender.  It should be noted that the categorical representation by scientists of this variable as opposed to just relying upon the continuous values.  Obesity is based on the BMI percentile for children and a teen or child would be considered obese if their BMI percentile was above the $95^{th}$ percentile for their age and gender.  This is a standard value based on a teen or child's age or gender.  It is also clear that height and weight impact obesity as BMI is weight divided by height squared.  There should be a correlation between blood pressure and obesity but not as strong as the other variables.  There should be a positive correlation between hypertension (high blood pressure) and obesity.  Similarly there should be a positive correlation between total cholesterol (especially triglycerides) and obesity.  High and extreme levels of cholesterol (dyslipidemia, hyperlidemia, or hypertriglyceridemia) should have an increased risk for obesity.  Nonetheless both cholesterol and blood pressure should have a weaker relationship as there other factors impacting each such as stress and genetics.  Choi (2014) has an interesting paper looking at the relationship between obesity and different complication like diabetes and cholesterol issues based on a biological perspective.  This would explain biologically the correlations between the various issues.  All variables chosen would be highly correlated to somewhat correlated and show-up in the visualization as expected from the layman's perspective.
 
 {\subsection {Data Cleaning}}
 Even though the NHANES data is contained is various databases as .csv files (lab data, vital signs data, concomitant medication data, demographics data, ...) not much was required for data cleaning.  All databases had a common linkage based on the sequence number (primary key) which connected all the databases with demographics easily.  All that was needed was simple merging to get whatever demographics variables as needed.  For some continuous variables it was necessary to create a new categorical variables based on binning.  For example to make the different bins for cholesterol a new ordinal variable was created for each bin so they could be incorporated into the visualization easier.  No other data cleaning was done as the focus was on the visualization as opposed to outlier diagnostics or checking for data integrity.
+
 
 \newpage
 
 
 {\section{Description of Interactive Visualization Approach}}
+The visualization was designed around the initial view being a treemap.  As described above this representation would be an approach familiar with clinicians who often use flow diagrams for diagnostics.  Also many clinical tables for variables like demographics would contain basic stats (counts, means, percentages) for all key variables.  This approach would mimic that table is a visual form.  The variables summarized would be things for subjects like race, age (numerical or categorical), height, weight, or history of specific illnesses as appropriate.  At the top of the form a radial button was added to select specific variables (age, height, or weight).  Once these are selected this will pick the overarching treemap structure by these groups from the dataset.  These treemaps would show the basic count data for each of these variables based on the categorical groupings.
 
+The next approach was to expand each of these groups based upon the additional variables.  These included BMI, cholesterol, and obesity.  These would show the statistics based upon which rectangle of the treemap was selected and all displayed the percentages.  The splits were 0-17, 18-23, 24-29, 30-35, and 36-42 for BMI $\frac{kg}{m^2}$ , <160, 161-181, 181-200, 201-220, 221-240, and >240 for cholesterol in $\frac{mg}{dL}$, and "Obese" and "Not Obese" for obesity.  Originally pie charts were used to convey this information.  After the presentation these were changed to bar charts given that the interpretation of lengths is preferable to areas given we wanted to compare all groups within a given treepmap selection.
+
+
+The treemap was fit in the center as this is the focus of everything.  It was important that this is the first thing seen as this is the most important and controlled element.  A title was placed on top describing which variable had been selected such as "Participants by Age".  It was hoped that this would avoid any confusion.  At the upper left but near the treemap is a box with radial buttons controlling which of the three variables are selected for the treemap among age, height, and weight.  This also had a colored border (purple-ish with a blue shadow) to contrast this with the white background making it easy to spot.  It was chosen to contrast with the white but not be too distracting using a distinct but mild coloring.  The bar charts (or original pie charts) would appear below based on the selection from the treemap.  Again this was to make it clear something would appear and it was felt people would see something appearing below as opposed to the right or left.  It was also felt these additional plots should be centered so that they fell just below the treemap.  Had they appeared in other spots this would have been awkward and having they align in a row makes reading easier.  Lastly at the bottom there is an endnote telling the user that all percentages have been rounded to the nearest unit.  This is important for two reasons: first it reminds the user that all numbers shown are estimated based on the data and not actual values and second it makes the table easier to read based on avoiding long numbers or the unscientific use of too many decimal places.  Using a key like this really tells the user not only the values but want rules were implemented for the calculations.
+
+Now we will look at a few example and show some of the results for this work by comparing two groups: 21-30 and 51-60.  The first plot below shows the 21-30 and the second shows the 51-60.  Here we can see a difference in the number of people with obesity differs and the other elements shift as well.  Notice that the BMI bar charts shift to the left in the more people are in lower BMI bins for the 21-30 group.  Also note that the cholesterol numbers improve as well noting that correlation.  Again the bars shift to the right and more people are falling within the lower cholesterol bins for the 21-30 group.  This appears to be a common trend with age as subjects in the 18-20 and 21-30 tend to have better counts for all three bar plots than people in the higher age bins.  It is also worth noting the counts tend to level off after 30 with highest counts within the 51-60 group.  It is worth noting the numbers improve once one reacher the group of people 70 or older.  It is worth noting that someone first must live to 70 or more to be counted in this rectangle and perhaps these tend to be healthier people i.e those with lower BMIs or cholesterol levels earlier in life.  These would be the people less likely to suffer from chronic diseases earlier in life (or pass away from them) and most likely to reach this age.  Yet these counts are still higher than the lowest bins.
+
+
+\newpage
+ \begin{figure}[!hb]
+\begin{center}
+\includegraphics[scale=0.55]{CSC595P1.png}
+\end{center}
+\end{figure}
+
+\newpage
+ \begin{figure}[!hb]
+\begin{center}
+\includegraphics[scale=0.55]{CSC595P2.png}
+\end{center}
+\end{figure}
+ \newpage
+
+
+
+\newpage
 \newpage
 
 {\sf References}
@@ -164,10 +192,4 @@ Even though the NHANES data is contained is various databases as .csv files (lab
 
 
 
-\newpage
-{\sf Appendix Code}
-
-\small{
-If we want to have code or snippets of code in an appendix
-}
 \end{document}
